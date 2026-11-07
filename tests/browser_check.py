@@ -19,7 +19,39 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
         page.wait_for_function("!pending")
 
     assert page.locator("#pixelCount").inner_text() == "1,024"
+    assert page.locator("#bitStat").is_hidden()
+    assert page.locator("#dataStat").is_hidden()
+    assert page.locator("#color").input_value() == "#000000"
+    assert page.locator("#sample").count() == 0
+    assert page.evaluate("Array.from(ctx.getImageData(20,20,1,1).data)") == [255, 255, 255, 255]
+    assert "px" not in page.locator(".comparison article").first.inner_text()
+    page.locator('[data-step="quantization"]').click()
+    assert page.locator("#bitCount").inner_text() == "24 bit"
     assert page.locator("#dataSize").inner_text() == "3,072 B"
+    page.select_option("#mode", "gray")
+    assert page.locator("#bitCount").inner_text() == "8 bit"
+    assert page.locator("#dataSize").inner_text() == "1,024 B"
+    page.select_option("#mode", "mono")
+    assert page.locator("#bitCount").inner_text() == "1 bit"
+    assert page.locator("#bits").is_disabled()
+    assert page.locator("#dataSize").inner_text() == "128 B"
+    assert page.evaluate("new Set(frame.codes).size") == 1
+    assert page.locator("#bits").input_value() == "1"
+    page.evaluate("ctx.fillStyle='rgb(127,127,127)';ctx.fillRect(0,0,512,512);render()")
+    assert page.evaluate("frame.codes[0]") == 0
+    assert page.evaluate("Array.from(frame.processed.data.slice(0,4))") == [0, 0, 0, 255]
+    page.evaluate("ctx.fillStyle='rgb(128,128,128)';ctx.fillRect(0,0,512,512);render()")
+    assert page.evaluate("frame.codes[0]") == 1
+    assert page.evaluate("Array.from(frame.processed.data.slice(0,4))") == [255, 255, 255, 255]
+    page.select_option("#mode", "rgb")
+    assert page.locator("#bits").input_value() == "8"
+    assert page.locator("#bits").is_enabled()
+    page.locator('[data-step="sampling"]').click()
+    page.select_option("#mode", "gray")
+    assert page.locator('[data-step="quantization"]').get_attribute("aria-pressed") == "true"
+    assert page.locator("#bitCount").inner_text() == "8 bit"
+    page.select_option("#mode", "rgb")
+    set_value("#bits", 2)
     # Known RGB input validates center sampling, integer quantization and code values.
     page.evaluate("ctx.fillStyle='rgb(127,128,255)';ctx.fillRect(0,0,512,512);render()")
     page.locator('[data-step="quantization"]').click()
@@ -45,6 +77,7 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
 
     # Same pixels: resolution affects printed size, not bytes or image content.
     fixed = page.evaluate("({bytes:document.querySelector('#dataSize').textContent,image:result.toDataURL(),n:frame.n})")
+    page.locator("#tab-resolution").click()
     set_value("#ppi", 128)
     assert page.evaluate("frame.n") == fixed["n"]
     assert page.locator("#dataSize").inner_text() == fixed["bytes"]
@@ -67,8 +100,8 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
 
     # Actual pointer drawing, undo and clear restore source pixel data.
     page.select_option("#resolutionBasis", "pixels")
-    page.select_option("#sample", "blank")
-    page.locator("#loadSample").click()
+    page.locator("#tab-drawing").click()
+    page.locator("#clear").click()
     source_before = page.evaluate("source.toDataURL()")
     box = page.locator("#original").bounding_box()
     page.mouse.move(box["x"] + 50, box["y"] + 50)
@@ -81,6 +114,7 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
     page.locator("#clear").click()
     assert page.evaluate("Array.from(ctx.getImageData(1,1,1,1).data)") == [255, 255, 255, 255]
 
+    page.locator("#tab-guide").click()
     with page.expect_download() as save:
         page.locator("#savePng").click()
     png_path = Path(temp) / "image.png"
@@ -116,7 +150,21 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
         page.set_viewport_size({"width": width, "height": 900})
         page.locator('[data-step="encoding"]').click()
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), width
-    touch = browser.new_context(viewport={"width": 768, "height": 1024}, has_touch=True)
+    for width, height in [(1024, 768), (1180, 820), (1194, 834), (1366, 1024), (1024, 680)]:
+        page.set_viewport_size({"width": width, "height": height})
+        page.locator("#tab-drawing").click()
+        page.locator('[data-step="quantization"]').click()
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), (width, height)
+        bottom = page.locator(".settings").bounding_box()
+        assert bottom["y"] + bottom["height"] <= height, (width, height, bottom)
+        for view in ["resolution", "guide", "drawing"]:
+            page.locator("#tab-" + view).click()
+            assert page.locator("#" + view + "View").is_visible()
+        page.locator("#tab-drawing").focus()
+        page.keyboard.press("ArrowRight")
+        assert page.locator("#resolutionView").is_visible()
+        page.locator("#tab-drawing").click()
+    touch = browser.new_context(viewport={"width": 1024, "height": 768}, has_touch=True)
     tablet = touch.new_page()
     tablet.goto(base)
     old = tablet.evaluate("source.toDataURL()")
@@ -124,5 +172,5 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
     tablet.touchscreen.tap(rect["x"] + 20, rect["y"] + 20)
     assert tablet.evaluate("source.toDataURL()") != old
     assert not errors, errors
-    print("PASS: sampling, quantization, binary encoding, resolution, drawing/undo, downloads, offline HTML, responsive layouts and touch")
+    print("PASS: sampling, quantization, binary encoding, resolution, drawing/undo, downloads, offline HTML, iPad landscape tabs, responsive layouts and touch")
     browser.close()
