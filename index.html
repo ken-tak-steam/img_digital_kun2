@@ -13,10 +13,20 @@
  main{padding:8px 14px}h1{font-size:22px}.badge,.intro{display:none}.app-header{padding:2px 0 6px}.view-tabs{margin-top:5px}.view-tabs button{min-height:38px;padding:5px}.steps{gap:6px;margin:5px 0 8px}.step{padding:5px 10px}.step b{font-size:14px}.step small{display:none}.step-number{width:25px;height:25px}.workspace{grid-template-columns:170px minmax(0,1fr);gap:10px}.panel{padding:10px}.comparison{gap:10px}.canvas-wrap{width:min(100%,280px,max(140px,calc(100svh - 510px)))}.canvas-heading h2{font-size:16px;margin-bottom:6px}.caption{font-size:11px;min-height:24px;margin-top:5px}.stats{gap:16px;margin-top:4px}.stats strong{font-size:18px}.lesson{padding:5px 10px;margin-top:8px}.lesson p{margin:0;font-size:12px}.settings{padding:8px 10px;margin-top:8px;gap:12px}.settings input[type=range]{min-height:30px}.settings .hint{font-size:11px;margin-top:2px}.settings .range-labels{display:none}.quantization{margin-bottom:1px}.quantization select{padding:5px}.palette{height:8px;margin-top:4px}.tools h2{font-size:15px}.tools .row{margin-bottom:6px}.swatches{margin-bottom:6px}.field{margin:6px 0}.inspector{margin-top:8px}footer{margin-top:8px}
 }
 @media(max-width:640px){.view-tabs{gap:4px}.view-tabs button{font-size:12px;padding:6px 3px}.tools .drawing-tools{grid-row:auto;grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.tools .drawing-tools>.row{grid-column:1}.tools .swatches{grid-column:2;grid-row:1;align-items:center}.tools .drawing-tools>.field{grid-column:1}.tools .drawing-tools>details{grid-column:2;grid-row:2}.tools>.actions{grid-column:1/-1}.tools>.hint{margin-top:6px}.tools .swatch{width:24px;height:24px}.caption{min-height:45px}}
+
+:root{--sampling:#176fa6;--quantization:#a9510b;--encoding:#7452b5}
+.step[data-step=sampling]{border-color:#8dbbda;color:var(--sampling)}.step[data-step=quantization]{border-color:#e4b28b;color:var(--quantization)}.step[data-step=encoding]{border-color:#bea7df;color:var(--encoding)}.step[data-step=sampling][aria-pressed=true]{background:var(--sampling);color:white}.step[data-step=quantization][aria-pressed=true]{background:var(--quantization);color:white}.step[data-step=encoding][aria-pressed=true]{background:var(--encoding);color:white}
+.settings{padding:0!important;border:0;background:none;gap:8px}.process-control{border:2px solid;border-radius:10px;padding:8px 10px;min-width:0}.sampling-control{background:#f0f8fd;border-color:#bedced}.quantization-control{background:#fff6ee;border-color:#f0d1b8}.sampling-control input{accent-color:var(--sampling)}.quantization-control input{accent-color:var(--quantization)}.process-control.is-active{box-shadow:inset 0 0 0 1px currentColor}.sampling-control.is-active{border-color:var(--sampling);color:#14567e}.quantization-control.is-active{border-color:var(--quantization);color:#81400c}.active-label{display:none;font-size:10px;padding:1px 5px;border-radius:4px;background:currentColor;vertical-align:middle}.is-active .active-label{display:inline-block;background:white;border:1px solid currentColor}.process-control>label{display:flex;gap:4px;align-items:center;flex-wrap:wrap}.process-control .value{margin-left:auto}.process-control.is-active>label:before{content:'▶';font-size:10px}
+main[data-stage=sampling] .lesson{border-color:var(--sampling);background:#edf6fc}main[data-stage=quantization] .lesson{border-color:var(--quantization);background:#fff2e7}main[data-stage=encoding] .lesson{border-color:var(--encoding);background:#f3edfc}
+.encoding #resultPreview{float:left;width:64px;margin:0 10px 5px 0}.encoding #resultPreview .canvas-wrap{width:64px;height:64px}.encoding #resultCaption{display:none}.encoding-summary{min-width:0;display:flex;justify-content:space-between;align-items:start;gap:8px;min-height:64px}.encoding-summary strong{display:block;font-size:23px;color:var(--encoding);line-height:1.3}.encoding-summary small{display:block;font-size:11px}.encoding-summary button{flex:none;border-color:#bea7df;color:#56368a;min-height:40px}.code-label{display:block;clear:both;font-size:12px;margin:4px 0;color:#56368a}.code-label span{color:var(--muted);font-size:10px;margin-left:5px}#fullCodes{display:block;width:100%;height:210px;resize:vertical;overflow:auto;white-space:pre;font:13px/1.7 ui-monospace,monospace;letter-spacing:.04em;background:#f8f5fd;color:#44276f;border:2px solid #bea7df;border-radius:8px;padding:8px;tab-size:4}#fullCodes{overflow:scroll;scrollbar-gutter:stable}#fullCodes::-webkit-scrollbar{width:12px;height:12px}#fullCodes::-webkit-scrollbar-track{background:#e8e0f1}#fullCodes::-webkit-scrollbar-thumb{background:#9477bd;border:2px solid #e8e0f1;border-radius:8px}#copyStatus{min-height:18px;font-size:11px}.encoding .stats{clear:both}.encoding #resultTag{display:none}#pixelDialog{width:min(94vw,480px);padding:18px}#pixelDialog .inspector{margin:0;clear:both}#pixelDialog .inspector p{font-size:12px}.popup-close{float:right;margin:0 0 8px 10px}.pixel-chip{width:38px;height:38px}
+.simple-resolution{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;max-width:900px;margin:20px auto}.simple-resolution .paper-area{height:240px;align-items:center;justify-content:center}.size-presets{display:flex;gap:8px}.size-presets button{flex:1;min-height:42px}.resolution-facts{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0}.resolution-facts small{display:block;font-size:12px;color:var(--muted)}.resolution-facts strong{font-size:24px}.resolution-message{padding:10px;background:#eaf3ee;border-radius:8px;font-size:14px}
+@media(min-width:760px) and (orientation:landscape) and (max-height:1100px){.canvas-wrap{width:min(100%,260px,max(140px,calc(100svh - 540px)))}.process-control{padding:6px 8px}#fullCodes{height:max(110px,min(190px,calc(100svh - 625px)))}.encoding-summary strong{font-size:20px}.encoding #resultPreview{margin-bottom:0}.encoding-summary{min-height:64px}.process-control label{font-size:12px}.encoding #copyStatus{font-size:10px;line-height:1.4;margin-top:2px}.encoding .stats{margin-top:2px}}
+@media(min-width:641px) and (max-width:900px){.encoding-summary{display:block}.encoding-summary button{margin:4px 0;min-height:34px}.encoding #resultPreview{float:none}.code-label{clear:both}}
+@media(max-width:640px){.encoding #resultPreview{float:none;width:48px;margin:0 0 4px}.encoding #resultPreview .canvas-wrap{width:48px;height:48px}.encoding-summary{display:block;min-height:0}.encoding-summary strong{font-size:18px}.encoding-summary button{font-size:11px;width:100%;padding:5px;margin:5px 0}.encoding-summary small{font-size:10px}.code-label span{display:none}#fullCodes{height:150px;font-size:12px}.process-control{padding:7px}.simple-resolution{grid-template-columns:1fr;gap:14px;margin:12px 0}.resolution-facts{grid-template-columns:1fr 1fr}.resolution-facts strong{font-size:20px}}
 </style>
 </head>
 <body>
-<main>
+<main data-stage="sampling">
 <div class="app-header"><header><div><div class="badge">描いて、変えて、しくみが見える。</div><h1>画像のデジタル化君２</h1></div><button id="licenseButton" class="small-button" aria-haspopup="dialog" aria-controls="licenseDialog">ライセンス・免責事項</button></header>
 <p class="intro">ひとつの絵が、画素になり、数値になり、０と１になる。その変化を比べよう。</p>
 <nav class="view-tabs" role="tablist" aria-label="学習画面">
@@ -42,25 +52,30 @@
 <div>
 <section class="comparison" aria-label="元の画像と加工後の比較">
 <article class="panel"><div class="canvas-heading"><h2>元の画像（原画）</h2><span>ここに描こう</span></div><div class="canvas-wrap"><canvas id="original" width="512" height="512" aria-label="自由に絵を描くキャンバス"></canvas></div><p class="caption">デジタル化前の原画を表す欄です。<br>ここに自由に描いてみよう。</p></article>
-<article class="panel"><div class="canvas-heading"><h2 id="resultTitle">標本化した画像</h2><span id="resultTag">画素の区切りを見る</span></div><div class="canvas-wrap"><canvas id="result" width="32" height="32" tabindex="0" role="img" aria-label="加工後の画像。クリックで画素を選択。矢印キーで移動できます。"></canvas><canvas id="overlay" width="512" height="512" aria-hidden="true"></canvas></div><p id="resultCaption" class="caption"></p><div class="stats"><div><strong id="pixelCount"></strong>画素</div><div id="bitStat" hidden><strong id="bitCount"></strong>１画素あたり</div><div id="dataStat" hidden><strong id="dataSize"></strong>画素データ量</div></div></article>
+<article id="processedArticle" class="panel"><div class="canvas-heading"><h2 id="resultTitle">標本化した画像</h2><span id="resultTag">画素の区切りを見る</span></div><div id="resultPreview"><div class="canvas-wrap"><canvas id="result" width="32" height="32" tabindex="0" role="img" aria-label="加工後の画像。クリックで画素を選択。矢印キーで移動できます。"></canvas><canvas id="overlay" width="512" height="512" aria-hidden="true"></canvas></div><p id="resultCaption" class="caption"></p></div>
+<div id="encodingPanel" hidden><div class="encoding-summary"><div><strong id="totalDigits"></strong><small id="digitsFormula"></small></div><button id="copyCodes" class="small-button">２進数をコピー</button></div><label class="code-label" for="fullCodes">画像全体の２進数 <span>左上から右へ、１行ずつ</span></label><textarea id="fullCodes" readonly wrap="off" spellcheck="false" aria-label="画像全体の２進数。上下左右にスクロールできます。"></textarea><p id="copyStatus" class="hint" role="status">上下・左右にスクロールできます。改行は画像の行の区切りです。</p></div><div class="stats"><div><strong id="pixelCount"></strong>画素</div><div id="bitStat" hidden><strong id="bitCount"></strong>１画素あたり</div><div id="dataStat" hidden><strong id="dataSize"></strong>画素データ量</div></div></article>
 </section>
 <div class="lesson" aria-live="polite"><strong id="lessonTitle"></strong><p id="lessonText"></p></div>
 <section class="panel settings" aria-label="標本化と量子化の設定">
-<div class="field"><label for="pixels">標本化：縦・横の画素数 <output id="dimensions" class="value"></output></label><input id="pixels" type="range" min="2" max="8" step="1" value="5"><div class="range-labels"><span>粗い（4 × 4）</span><span>細かい（256 × 256）</span></div><div class="row"><label class="hint"><input id="grid" type="checkbox" checked> 画素の区切りを表示</label></div><p id="samplingHint" class="hint">各マスの中心の色を１つ取り出しています。</p></div>
-<div class="field"><label for="bits">量子化：色・明るさの段階数</label><div class="quantization"><select id="mode" aria-label="色の表し方"><option value="rgb">カラー（RGB）</option><option value="gray">グレースケール</option><option value="mono">モノクロ（白黒２値）</option></select><output id="levels"></output></div><input id="bits" type="range" min="1" max="8" step="1" value="8"><div class="range-labels"><span>少ない（1 bit）</span><span>多い（8 bit）</span></div><div id="palette" class="palette" aria-hidden="true"></div><p id="quantizationHint" class="hint"></p></div>
+<div id="samplingControls" class="field process-control sampling-control"><label for="pixels">① 標本化：マスの細かさ <span class="active-label">操作中</span> <output id="dimensions" class="value"></output></label><input id="pixels" type="range" min="2" max="8" step="1" value="5"><div class="range-labels"><span>粗い（4 × 4）</span><span>細かい（256 × 256）</span></div><div class="row"><label class="hint"><input id="grid" type="checkbox" checked> 画素の区切りを表示</label></div><p id="samplingHint" class="hint">各マスの中心の色を１つ取り出しています。</p></div>
+<div id="quantizationControls" class="field process-control quantization-control"><label for="bits">② 量子化：色の段階数 <span class="active-label">操作中</span></label><div class="quantization"><select id="mode" aria-label="色の表し方"><option value="rgb">カラー（RGB）</option><option value="gray">グレースケール</option><option value="mono">モノクロ（白黒２値）</option></select><output id="levels"></output></div><input id="bits" type="range" min="1" max="8" step="1" value="8"><div class="range-labels"><span>少ない（1 bit）</span><span>多い（8 bit）</span></div><div id="palette" class="palette" aria-hidden="true"></div><p id="quantizationHint" class="hint"></p></div>
 </section>
-<section id="inspector" class="panel inspector" aria-label="選んだ画素の符号化" hidden><div id="chip" class="pixel-chip"></div><div><h3 id="selectedPosition"></h3><p>右の画像をクリック／タップして選択。フォーカス後は矢印キーでも移動できます。</p><table class="code-table"><thead><tr><th>成分</th><th>標本値（0〜255）</th><th>量子化した整数</th><th>２進数</th></tr></thead><tbody id="codeRows"></tbody></table><p id="codeExplanation" class="hint"></p><div id="stream" class="bit-stream" aria-label="選択画素から続く最大8画素のビット列"></div></div></section>
+
 </div>
 </div>
-</section><section id="resolutionView" role="tabpanel" aria-labelledby="tab-resolution" class="panel resolution" hidden><h2 id="resolutionTitle">画素数と解像度・印刷サイズを比べよう</h2><div class="resolution-grid">
-<div><label class="field"><span>何を同じにして比べる？</span><select id="resolutionBasis"><option value="pixels">画素数を同じにする</option><option value="print">印刷サイズを同じにする</option></select></label><p id="resolutionLesson" class="hint"></p><label id="printSizeField" class="field" hidden><span>印刷する１辺の長さ</span><input id="printSize" type="number" min="0.5" max="5" step="0.01" value="2.54"> cm</label></div>
-<div><label class="field"><span>画像の解像度 <output id="ppiValue" class="value">32 ppi</output></span><input id="ppi" type="range" min="8" max="256" step="1" value="32"></label><div class="range-labels"><span>8 ppi</span><span>256 ppi</span></div><p class="hint">1インチ（2.54 cm）あたりに並ぶ画素の数。<br>画像は ppi、プリンターの点の密度は dpi と呼びます。</p><p id="resolutionNumbers" class="formula"></p></div>
-<div class="paper-preview"><div class="paper-area"><div id="paper" class="paper"><canvas id="printPreview" width="32" height="32" aria-label="印刷サイズの相対的な比較"></canvas></div></div><p id="printStats" class="print-stats"></p></div>
-</div><p class="hint">印刷イメージは大きさの変化を比べるための縮尺表示です。画面上の実寸ではありません。ppiを変えても、画素数が同じなら画像の情報量は変わりません。</p></section>
-<section id="guideView" role="tabpanel" aria-labelledby="tab-guide" hidden><details class="panel bottom" open><summary>授業で使う前に：このアプリのモデル・データ量・dpiについて</summary><p>実際のアナログの原画には、画素数やビット数はありません。左欄はその原画を表す学習用のモデルです。ただし画面上の描画自体はデジタルであり、実物を直接取り込む処理ではありません。</p><p>標本化では、等間隔に区切った各マスの中心に最も近い元画像の画素を採用します。量子化では、RGBの各成分または明るさを指定の段階数に丸めます。符号化では量子化後の整数を固定長の２進数で表します。符号化だけでは画像の見た目は変わりません。</p><p>圧縮前の画素データ量 ＝ 横の画素数 × 縦の画素数 × １画素あたりのビット数 ÷ 8。表示するBは理論値で、小数になる場合があります。実際の格納には端数を切り上げたバイト数が必要です。ファイルのヘッダー・圧縮・透過情報やCanvas内部のメモリ量は含みません。</p><p>通常の設定は、カラーがRGB各8 bitで24 bit／画素、グレースケール（256階調）が8 bit／画素、モノクロ（白黒２値）が1 bit／画素です。カラーとグレースケールは段階数を減らすと必要なビット数も減ります。</p><p>グレースケールの明るさは0.299R + 0.587G + 0.114Bを四捨五入して求めます。カラーはRGB各成分の段階数の３乗が表現可能な色数です。１成分2 bitなら4段階、1画素6 bitで64色です。</p><p>画像の画素密度の単位はppi、プリンターのドット密度の単位はdpiです。授業や印刷設定では画像の解像度も「dpi」と表記されることがありますが、このアプリでは区別して表示します。印刷サイズ固定では必要画素数を四捨五入するため、指定解像度との間に丸め誤差が生じます。保存するPNGには、ここでの印刷解像度を設定しません。</p><p>元画像より多くの細部を復元する機能ではありません。右のPNGとビット列は、量子化後のデータを書き出します。ビット列テキストは学習用の文字表現で、表示する理論データ量とファイルサイズは異なります。</p></details>
+</section><section id="resolutionView" role="tabpanel" aria-labelledby="tab-resolution" class="panel resolution" hidden>
+<h2>同じ画像を、大きく印刷すると？</h2><p>画素の数はそのまま。大きく広げると、１つ１つの画素も大きくなります。</p>
+<div class="simple-resolution"><div><label class="field"><span>印刷する１辺の長さ <output id="printSizeValue" class="value"></output></span><input id="printSize" type="range" min="2.54" max="10.16" step="0.01" value="2.54"></label><div class="size-presets"><button data-size="2.54">小さく</button><button data-size="5.08">２倍に</button><button data-size="10.16">４倍に</button></div>
+<div class="resolution-facts"><div><small>画素数は変わらない</small><strong id="fixedPixels"></strong></div><div><small>１インチに並ぶ画素の数（解像度）</small><strong id="ppiValue"></strong></div></div>
+<p id="resolutionLesson" class="resolution-message"></p><p class="hint">1インチは2.54 cm。「ppi」は、1インチに画素がいくつ並ぶかを表す単位です。</p></div>
+<div><div class="paper-area"><div id="paper" class="paper"><canvas id="printPreview" width="32" height="32" aria-label="同じ画素数の画像を大きさだけ変えて印刷するイメージ"></canvas></div></div><p id="printStats" class="print-stats"></p></div></div>
+<p class="hint">画面上の長さは実寸ではなく、同じ縮尺での比較です。マス目は画素の区切りです（32 × 32画素まで表示）。画素数を変えたいときは「描画・デジタル化」の青い標本化スライダーへ。</p>
+</section>
+<section id="guideView" role="tabpanel" aria-labelledby="tab-guide" hidden><details class="panel bottom" open><summary>授業で使う前に：このアプリのモデル・データ量・dpiについて</summary><p>実際のアナログの原画には、画素数やビット数はありません。左欄はその原画を表す学習用のモデルです。ただし画面上の描画自体はデジタルであり、実物を直接取り込む処理ではありません。</p><p>標本化では、等間隔に区切った各マスの中心に最も近い元画像の画素を採用します。量子化では、RGBの各成分または明るさを指定の段階数に丸めます。符号化では量子化後の整数を固定長の２進数で表します。符号化だけでは画像の見た目は変わりません。</p><p>圧縮前の画素データ量 ＝ 横の画素数 × 縦の画素数 × １画素あたりのビット数 ÷ 8。表示するBは理論値で、小数になる場合があります。実際の格納には端数を切り上げたバイト数が必要です。ファイルのヘッダー・圧縮・透過情報やCanvas内部のメモリ量は含みません。</p><p>通常の設定は、カラーがRGB各8 bitで24 bit／画素、グレースケール（256階調）が8 bit／画素、モノクロ（白黒２値）が1 bit／画素です。カラーとグレースケールは段階数を減らすと必要なビット数も減ります。</p><p>グレースケールの明るさは0.299R + 0.587G + 0.114Bを四捨五入して求めます。カラーはRGB各成分の段階数の３乗が表現可能な色数です。１成分2 bitなら4段階、1画素6 bitで64色です。</p><p>画像の解像度は、1インチ（2.54 cm）に何画素並ぶかを表すppiで示します。印刷サイズのページでは画素数を固定し、同じ画像を大きくしたときの解像度の変化を比べます。プリンターの点の密度を表すdpiとは区別します。保存するPNGには印刷解像度を設定しません。</p><p>元画像より多くの細部を復元する機能ではありません。右のPNGとビット列は、量子化後のデータを書き出します。ビット列テキストは学習用の文字表現で、表示する理論データ量とファイルサイズは異なります。</p></details>
 <div class="downloads"><button id="savePng">量子化後の画像をPNG保存</button><button id="saveCodes">量子化後のビット列を保存</button><button id="downloadApp">アプリをHTMLで保存</button></div><div id="status" class="status" role="status"></div>
 <p class="privacy">画像の外部送信なし・アクセス解析なし。保存したHTMLはオフラインでも使えます。</p>
 </section><footer><span>© 2026 Takakura Kentaro</span><a href="https://ken-tak-steam.github.io/img_digital_kun/" target="_blank" rel="noopener noreferrer">画像のデジタル化君（前作）↗</a><a href="https://github.com/ken-tak-steam/img_digital_kun2" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="download.html">ダウンロードページ</a></footer>
+<dialog id="pixelDialog" aria-labelledby="selectedPosition"><button id="closePixel" class="small-button popup-close">閉じる</button><div id="inspector" class="inspector"><div id="chip" class="pixel-chip"></div><div><h3 id="selectedPosition"></h3><p class="hint">この１画素の、量子化後の色を０と１で表すと…</p><table class="code-table"><thead><tr><th>成分</th><th>元の値</th><th>整数</th><th>２進数</th></tr></thead><tbody id="codeRows"></tbody></table><p id="codeExplanation" class="hint"></p><p class="hint">矢印キーで隣の画素も確認できます。</p></div></div></dialog>
 <dialog id="licenseDialog" aria-labelledby="licenseTitle"><button id="closeLicense" style="float:right">閉じる</button><h2 id="licenseTitle">ライセンス・免責事項</h2><pre id="licenseText">Copyright (c) 2026 Takakura Kentaro
 All rights reserved except as expressly permitted below.
 
@@ -100,13 +115,11 @@ let savedBits=8;
 let step='sampling',activePointer=null,lastPoint=null,selected={x:0,y:0},frame=null,pending=false;
 const number=(n,d=2)=>n.toLocaleString('ja-JP',{maximumFractionDigits:d});
 const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
-const lessons={sampling:['① 標本化：位置を決めて、色を取り出す','画素数を減らすと、細い線や小さな形はどうなる？ 自分で細い線や丸を描いて比べてみよう。'],quantization:['② 量子化：色や明るさを、決まった段階に丸める','画素数をそのままに、色の段階数を減らしてみよう。線のふちや薄い色の変化と、１画素あたりのビット数に注目。'],encoding:['③ 符号化：量子化した整数を、０と１で表す','右の画像の画素を選ぼう。色を表す整数が、何桁の２進数になるかな？ 符号化しても、画像の見た目は変わりません。']};
+const lessons={sampling:['① 標本化：位置を決めて、色を取り出す','画素数を減らすと、細い線や小さな形はどうなる？ 自分で細い線や丸を描いて比べてみよう。'],quantization:['② 量子化：色や明るさを、決まった段階に丸める','画素数をそのままに、色の段階数を減らしてみよう。線のふちや薄い色の変化と、１画素あたりのビット数に注目。'],encoding:['③ 符号化：量子化した整数を、０と１で表す','画像全体を０と１で表すと何桁になる？ マスの細かさや色の段階を変えて比べよう。小さな画像をタップすると１画素の中身も見られます。']};
 function parameters(){
- const ppi=Number($('ppi').value),physical=$('resolutionBasis').value==='print';
- const cm=clamp(Number($('printSize').value)||2.54,.5,5);
- const n=physical?Math.max(1,Math.round(cm/2.54*ppi)):2**Number($('pixels').value);
+ const n=2**Number($('pixels').value),cm=Number($('printSize').value),ppi=n/cm*2.54;
  const mono=$('mode').value==='mono',gray=$('mode').value!=='rgb',bits=mono?1:Number($('bits').value);
- return {n,bits,gray,mono,levels:2**bits,bpp:gray?bits:3*bits,ppi,cm,physical};
+ return {n,bits,gray,mono,levels:2**bits,bpp:gray?bits:3*bits,ppi,cm};
 }
 function quantize(v,levels){return Math.round(v*(levels-1)/255)}
 function binary(v,bits){return v.toString(2).padStart(bits,'0')}
@@ -135,27 +148,32 @@ function render(){
  const bpp=p.bpp,bytes=p.n*p.n*bpp/8;
  $('bitStat').hidden=$('dataStat').hidden=step==='sampling';
  $('bits').disabled=p.mono;
- $('resultTitle').textContent=step==='sampling'?'標本化した画像':step==='quantization'?'量子化した画像':'符号化する画像';
- $('resultTag').textContent=step==='sampling'?'画素の区切りを見る':step==='quantization'?'色の段階を比べる':'画素を選んでみよう';
+ $('resultTitle').textContent=step==='sampling'?'標本化した画像':step==='quantization'?'量子化した画像':'画像全体を０と１に';
+ $('resultTag').textContent=step==='sampling'?'画素の区切りを見る':step==='quantization'?'色の段階を比べる':'③ 符号化';
  $('resultCaption').textContent=`${p.n} × ${p.n} px ／ ${step==='sampling'?'各マスの中心から色を取り出す':p.mono?'白黒２値・2段階':p.gray?p.levels+'階調のグレースケール':'RGB各'+p.levels+'段階・'+number(p.levels**3)+'色'}`;
  $('pixelCount').textContent=number(p.n*p.n);$('bitCount').textContent=bpp+' bit';$('dataSize').textContent=number(bytes,3)+' B';
  $('dataSize').title='バイト単位で格納する場合：'+number(Math.ceil(bytes))+' B以上';
  $('dimensions').textContent=`${p.n} × ${p.n} px`;
  $('levels').textContent=p.levels+'段階'+(p.gray?'':'／成分');
- $('quantizationHint').textContent=`${p.bits} bit${p.gray?'／画素':'／成分 → '+p.bpp+' bit／画素'}。${p.mono?'白=1、黒=0の２値で表します。':step==='sampling'?'設定を変えると「量子化」に進みます。':'色の段階を減らすと、データ量も小さくなります。'}`;
+ $('quantizationHint').textContent=`${p.bits} bit${p.gray?'／画素':'／成分 → '+p.bpp+' bit／画素'}。${p.mono?'白=1、黒=0の２値です。':'ここを動かすと②量子化。色の段階が変わります。'}`;
  const colors=Array.from({length:Math.min(p.levels,256)},(_,i)=>{const v=Math.round(i*255/(Math.min(p.levels,256)-1));return `rgb(${v},${v},${v}) ${i*100/Math.min(p.levels,256)}% ${(i+1)*100/Math.min(p.levels,256)}%`});
  $('palette').style.background='linear-gradient(to right,'+colors.join(',')+')';
  $('lessonTitle').textContent=lessons[step][0];$('lessonText').textContent=lessons[step][1];
- $('inspector').hidden=step!=='encoding';
- $('pixels').disabled=p.physical;$('printSizeField').hidden=!p.physical;
- $('samplingHint').textContent=p.physical?'印刷サイズ固定のため、画素数は下の解像度から計算します。':'各マスの中心の色を１つ取り出します。色の段階とビット数は「量子化」で決めます。';
- $('resolutionLesson').textContent=p.physical?'同じ大きさに印刷するなら、解像度を上げるほど多くの画素が必要です。':'同じ画素数なら、解像度を上げるほど印刷サイズが小さくなります。';
- const printCm=p.physical?p.cm:p.n/p.ppi*2.54;
- $('ppiValue').textContent=p.ppi+' ppi';
- $('resolutionNumbers').textContent=p.physical?`${number(p.cm)} cm ÷ 2.54 × ${p.ppi} ppi ≒ ${p.n} px`:`${p.n} px ÷ ${p.ppi} ppi × 2.54 ＝ ${number(printCm)} cm`;
- $('printStats').textContent=`${number(printCm)} × ${number(printCm)} cm ／ ${p.n} × ${p.n} px（共通の縮尺・1 cmを6画面pxで表示。大きいときは枠内をスクロール）`;
- const side=Math.max(1,printCm*6);$('paper').style.width=side+'px';$('paper').style.height=side+'px';
- printCanvas.width=printCanvas.height=p.n;printCtx.putImageData(step==='sampling'?frame.sampled:frame.processed,0,0);
+ document.querySelector('main').dataset.stage=step;
+ $('samplingControls').classList.toggle('is-active',step==='sampling');
+ $('quantizationControls').classList.toggle('is-active',step==='quantization');
+ $('processedArticle').classList.toggle('encoding',step==='encoding');
+ $('encodingPanel').hidden=step!=='encoding';
+ if(step==='encoding')updateFullCodes();
+ $('samplingHint').textContent='ここを動かすと①標本化。マスの細かさが変わります。';
+ $('printSizeValue').textContent=number(p.cm)+' cm';
+ $('fixedPixels').textContent=`${p.n} × ${p.n} 画素`;
+ $('ppiValue').textContent=number(p.ppi,1)+' ppi';
+ $('resolutionLesson').textContent=`同じ${p.n}画素を${number(p.cm)} cmに広げています。大きくするほど、１インチに入る画素が少なくなり、解像度は下がります。`;
+ $('printStats').textContent=`１辺 ${number(p.cm)} cmの印刷イメージ`;
+ const side=p.cm*20;$('paper').style.width=side+'px';$('paper').style.height=side+'px';
+ printCanvas.width=printCanvas.height=512;printCtx.imageSmoothingEnabled=false;printCtx.drawImage(quantized,0,0,512,512);
+ if(p.n<=32){printCtx.strokeStyle='rgba(21,59,51,.22)';printCtx.lineWidth=1;printCtx.beginPath();for(let i=1;i<p.n;i++){const pos=i*512/p.n;printCtx.moveTo(pos,0);printCtx.lineTo(pos,512);printCtx.moveTo(0,pos);printCtx.lineTo(512,pos)}printCtx.stroke()}
  drawOverlay();updateInspector();
 }
 function requestRender(){if(!pending){pending=true;requestAnimationFrame(render)}}
@@ -163,7 +181,7 @@ function drawOverlay(){
  gridCtx.clearRect(0,0,512,512);if(!frame)return;
  const cell=512/frame.n;
  if($('grid').checked&&frame.n<=64){gridCtx.lineWidth=1;gridCtx.strokeStyle='rgba(21,59,51,.26)';gridCtx.beginPath();for(let i=1;i<frame.n;i++){const pos=i*cell;gridCtx.moveTo(pos,0);gridCtx.lineTo(pos,512);gridCtx.moveTo(0,pos);gridCtx.lineTo(512,pos)}gridCtx.stroke()}
- if(step==='encoding'){const x=selected.x*cell,y=selected.y*cell;gridCtx.strokeStyle='white';gridCtx.lineWidth=5;gridCtx.strokeRect(x,y,cell,cell);gridCtx.strokeStyle='#c63b31';gridCtx.lineWidth=2;gridCtx.strokeRect(x,y,cell,cell)}
+ if($('pixelDialog').open){const x=selected.x*cell,y=selected.y*cell;gridCtx.strokeStyle='white';gridCtx.lineWidth=5;gridCtx.strokeRect(x,y,cell,cell);gridCtx.strokeStyle='#c63b31';gridCtx.lineWidth=2;gridCtx.strokeRect(x,y,cell,cell)}
 }
 function updateInspector(){
  if(!frame)return;const {n,bits,gray,levels}=frame,idx=selected.y*n+selected.x,i=idx*4,channels=gray?1:3;
@@ -173,9 +191,21 @@ function updateInspector(){
  $('selectedPosition').textContent=`選択した画素：左から${selected.x+1}、上から${selected.y+1}`;
  $('codeRows').replaceChildren(...values.map((v,c)=>{const row=document.createElement('tr');const q=frame.codes[idx*channels+c];for(const val of [gray?'明るさ':['R（赤）','G（緑）','B（青）'][c],v,q,binary(q,bits)]){const td=document.createElement('td');if(row.children.length===3){const code=document.createElement('code');code.textContent=val;td.append(code)}else td.textContent=val;row.append(td)}return row}));
  $('codeExplanation').textContent=`0〜${levels-1}の整数を${bits}桁の２進数で表します。１画素は${frame.bpp} bit。左上から右へ、行ごとに並べます。`;
- const slice=frame.codes.slice(idx*channels,Math.min(frame.codes.length,(idx+8)*channels));
- $('stream').textContent=Array.from({length:slice.length/channels},(_,j)=>Array.from(slice.slice(j*channels,(j+1)*channels),v=>binary(v,bits)).join(' ')).join(' | ');
+ }
+function encodedRows(){
+ const {n,bits,gray,codes}=frame,channels=gray?1:3;
+ const lookup=Array.from({length:2**bits},(_,v)=>binary(v,bits));
+ const rows=[];
+ for(let y=0;y<n;y++){const values=[];for(let i=y*n*channels;i<(y+1)*n*channels;i++)values.push(lookup[codes[i]]);rows.push(values.join(''))}
+ return rows;
 }
+function updateFullCodes(){
+ const total=frame.n*frame.n*frame.bpp;
+ $('totalDigits').textContent=number(total)+' 桁';
+ $('digitsFormula').textContent=`${frame.n} × ${frame.n}画素 × ${frame.bpp} bit（改行を除く）`;
+ const next=encodedRows().join('\n');if($('fullCodes').value!==next){$('fullCodes').value=next;$('copyStatus').textContent='上下・左右にスクロールできます。改行は画像の行の区切りです。'}
+}
+function showPixel(){updateInspector();if(!$('pixelDialog').open)$('pixelDialog').showModal();drawOverlay()}
 function chooseStep(next){step=next;document.querySelectorAll('[data-step]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.step===next)));render()}
 function saveHistory(){if(historyStack.length>=20)historyStack.shift();historyStack.push(ctx.getImageData(0,0,512,512));$('undo').disabled=false}
 function white(){ctx.fillStyle='white';ctx.fillRect(0,0,512,512)}
@@ -184,8 +214,12 @@ function point(e){const box=source.getBoundingClientRect();return [(e.clientX-bo
 source.addEventListener('pointerdown',e=>{if(activePointer!==null||e.button!==0)return;saveHistory();activePointer=e.pointerId;source.setPointerCapture(e.pointerId);lastPoint=point(e);ctx.fillStyle=ctx.strokeStyle=$('color').value;ctx.lineWidth=Number($('penWidth').value);ctx.lineCap='round';ctx.beginPath();ctx.arc(...lastPoint,ctx.lineWidth/2,0,Math.PI*2);ctx.fill();requestRender()});
 source.addEventListener('pointermove',e=>{if(e.pointerId!==activePointer)return;const next=point(e);ctx.beginPath();ctx.moveTo(...lastPoint);ctx.lineTo(...next);ctx.stroke();lastPoint=next;requestRender()});
 for(const event of ['pointerup','pointercancel','lostpointercapture'])source.addEventListener(event,()=>{activePointer=null});
-result.addEventListener('click',e=>{const box=result.getBoundingClientRect();selected={x:clamp(Math.floor((e.clientX-box.left)*frame.n/box.width),0,frame.n-1),y:clamp(Math.floor((e.clientY-box.top)*frame.n/box.height),0,frame.n-1)};chooseStep('encoding');result.focus()});
-result.addEventListener('keydown',e=>{const moves={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(!moves[e.key])return;e.preventDefault();selected.x=clamp(selected.x+moves[e.key][0],0,frame.n-1);selected.y=clamp(selected.y+moves[e.key][1],0,frame.n-1);chooseStep('encoding')});
+result.addEventListener('click',e=>{const box=result.getBoundingClientRect();selected={x:clamp(Math.floor((e.clientX-box.left)*frame.n/box.width),0,frame.n-1),y:clamp(Math.floor((e.clientY-box.top)*frame.n/box.height),0,frame.n-1)};showPixel()});
+function movePixel(e){const moves={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(!moves[e.key])return;e.preventDefault();selected.x=clamp(selected.x+moves[e.key][0],0,frame.n-1);selected.y=clamp(selected.y+moves[e.key][1],0,frame.n-1);showPixel()}
+result.addEventListener('keydown',movePixel);
+$('pixelDialog').addEventListener('keydown',movePixel);
+$('closePixel').onclick=()=>$('pixelDialog').close();
+$('pixelDialog').onclose=()=>{drawOverlay();result.focus({preventScroll:true})};
 document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>chooseStep(b.dataset.step));
 document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{$('color').value=b.dataset.color;showColor()});
 $('color').oninput=showColor;
@@ -193,13 +227,19 @@ $('color').oninput=showColor;
 $('penWidth').oninput=()=>$('penValue').textContent=$('penWidth').value+' px';
 $('undo').onclick=()=>{if(historyStack.length)ctx.putImageData(historyStack.pop(),0,0);$('undo').disabled=!historyStack.length;render()};
 $('clear').onclick=()=>{saveHistory();white();render()};
-for(const id of ['pixels','ppi'])$(id).oninput=requestRender;
-$('bits').oninput=()=>{savedBits=Number($('bits').value);if(step==='sampling')chooseStep('quantization');else requestRender()};
-$('mode').onchange=()=>{if($('mode').value==='mono'){$('bits').value=1}else{$('bits').value=savedBits}if(step==='sampling')chooseStep('quantization');else render()};
-$('resolutionBasis').onchange=render;
-$('printSize').oninput=()=>{if($('printSize').validity.valid&&$('printSize').value!=='')requestRender()};
-$('printSize').onchange=()=>{$('printSize').value=clamp(Number($('printSize').value)||2.54,.5,5);render()};
-$('grid').onchange=drawOverlay;
+$('pixels').oninput=()=>chooseStep('sampling');
+$('bits').oninput=()=>{savedBits=Number($('bits').value);chooseStep('quantization')};
+$('mode').onchange=()=>{if($('mode').value==='mono'){$('bits').value=1}else{$('bits').value=savedBits}chooseStep('quantization')};
+$('printSize').oninput=requestRender;
+document.querySelectorAll('[data-size]').forEach(button=>button.onclick=()=>{$('printSize').value=button.dataset.size;render()});
+$('copyCodes').onclick=async()=>{
+ const text=$('fullCodes').value;
+ try{if(!navigator.clipboard?.writeText)throw new Error('clipboard');await navigator.clipboard.writeText(text);$('copyStatus').textContent='画像全体の２進数をコピーしました。改行以外は０と１だけです。'}
+ catch{const box=$('fullCodes');box.focus();box.select();try{if(!document.execCommand('copy'))throw new Error('copy');$('copyStatus').textContent='画像全体の２進数をコピーしました。'}catch{$('copyStatus').textContent='２進数を選択しました。端末の「コピー」で保存してください。'}}
+};
+$('grid').onchange=()=>chooseStep('sampling');
+$('samplingControls').addEventListener('focusin',()=>{if(step!=='sampling')chooseStep('sampling')});
+$('quantizationControls').addEventListener('focusin',()=>{if(step!=='quantization')chooseStep('quantization')});
 function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);$('status').textContent=name+' の保存を開始しました。'}
 $('savePng').onclick=()=>{render();quantized.toBlob(blob=>{if(blob)download(blob,'img_digital_kun2.png')},'image/png')};
 $('saveCodes').onclick=()=>{render();const {n,bits,gray,bpp,codes}=frame,channels=gray?1:3;const header=`画像のデジタル化君２\n幅=${n} 高さ=${n} 成分=${gray?'明るさ':'RGB'} 成分あたり=${bits}bit 画素あたり=${bpp}bit\n左上から右へ、上の行から下の行へ。空白は成分の区切り、| は画素の区切り。\nこのテキストは学習用の文字表現です。\n\n`;

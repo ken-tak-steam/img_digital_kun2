@@ -62,11 +62,25 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
     before = page.evaluate("result.toDataURL()")
     page.locator('[data-step="encoding"]').click()
     assert page.evaluate("result.toDataURL()") == before
+    assert page.locator("#pixelDialog").is_hidden()
+    assert page.locator("#totalDigits").inner_text() == "6,144 桁"
+    full = page.locator("#fullCodes").input_value()
+    assert full.splitlines() == ["011011" * 32] * 32
+    assert len(full.replace("\n", "")) == 6144
+    context.grant_permissions(["clipboard-read", "clipboard-write"])
+    page.locator("#copyCodes").click()
+    page.wait_for_function("document.querySelector('#copyStatus').textContent.includes('コピーしました')")
+    assert page.evaluate("navigator.clipboard.readText()") == full
+    assert page.locator("#fullCodes").evaluate("el => el.scrollWidth > el.clientWidth && el.scrollHeight > el.clientHeight")
+    page.locator("#result").click()
+    assert page.locator("#pixelDialog").is_visible()
     assert page.locator("#codeRows code").all_text_contents() == ["01", "10", "11"]
-    page.locator("#result").click(position={"x": 100, "y": 100})
+    page.locator("#closePixel").click()
+    page.locator("#result").click(position={"x": 20, "y": 20})
     previous = page.evaluate("selected.x")
     page.keyboard.press("ArrowRight")
     assert page.evaluate("selected.x") == previous + 1
+    page.locator("#closePixel").click()
 
     page.select_option("#mode", "gray")
     set_value("#bits", 1)
@@ -75,31 +89,28 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
     set_value("#pixels", 2)
     assert page.locator("#dataSize").inner_text() == "2 B"
 
-    # Same pixels: resolution affects printed size, not bytes or image content.
+    assert page.locator("#samplingControls").evaluate("el=>el.classList.contains('is-active')")
+    page.locator('[data-step="encoding"]').click()
+    assert page.locator("#totalDigits").inner_text() == "16 桁"
+    assert len(page.locator("#fullCodes").input_value().replace("\n", "")) == 16
+    # A single print-size control leaves pixels and encoded data unchanged.
     fixed = page.evaluate("({bytes:document.querySelector('#dataSize').textContent,image:result.toDataURL(),n:frame.n})")
     page.locator("#tab-resolution").click()
-    set_value("#ppi", 128)
+    assert page.locator("#resolutionView input").count() == 1
+    assert page.locator("#ppiValue").inner_text() == "4 ppi"
+    page.locator('[data-size="5.08"]').click()
     assert page.evaluate("frame.n") == fixed["n"]
     assert page.locator("#dataSize").inner_text() == fixed["bytes"]
     assert page.evaluate("result.toDataURL()") == fixed["image"]
-    assert "0.08 cm" in page.locator("#resolutionNumbers").inner_text()
-    # Same print size: double ppi doubles each dimension and quadruples data.
-    page.select_option("#resolutionBasis", "print")
-    set_value("#printSize", "2.54")
-    set_value("#ppi", 32)
-    assert page.evaluate("frame.n") == 32
-    assert page.locator("#dataSize").inner_text() == "128 B"
-    set_value("#ppi", 64)
-    assert page.evaluate("frame.n") == 64
-    assert page.locator("#dataSize").inner_text() == "512 B"
-    assert page.locator("#pixels").is_disabled()
-    set_value("#printSize", ".5")
-    set_value("#ppi", 8)
-    assert page.evaluate("frame.n") == 2
-    assert page.locator("#dataSize").inner_text() == "0.5 B"
+    assert page.locator("#ppiValue").inner_text() == "2 ppi"
+    side = page.locator("#paper").bounding_box()["width"]
+    page.locator('[data-size="10.16"]').click()
+    assert page.locator("#ppiValue").inner_text() == "1 ppi"
+    assert abs(page.locator("#paper").bounding_box()["width"] - side * 2) < 1
+    assert page.evaluate("frame.n") == fixed["n"]
+    assert page.locator("#dataSize").inner_text() == fixed["bytes"]
 
     # Actual pointer drawing, undo and clear restore source pixel data.
-    page.select_option("#resolutionBasis", "pixels")
     page.locator("#tab-drawing").click()
     page.locator("#clear").click()
     source_before = page.evaluate("source.toDataURL()")
@@ -136,8 +147,18 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
     assert offline.title() == "画像のデジタル化君２"
     assert offline.locator("#pixelCount").inner_text() == "1,024"
     offline.locator('[data-step="encoding"]').click()
-    assert offline.locator("#inspector").is_visible()
+    assert offline.locator("#encodingPanel").is_visible()
+    offline.locator("#result").click()
+    assert offline.locator("#pixelDialog").is_visible()
     context.set_offline(False)
+
+    page.locator("#tab-drawing").click()
+    set_value("#pixels", 8)
+    page.select_option("#mode", "rgb")
+    set_value("#bits", 8)
+    page.locator('[data-step="encoding"]').click()
+    assert page.locator("#totalDigits").inner_text() == "1,572,864 桁"
+    assert len(page.locator("#fullCodes").input_value().replace("\n", "")) == 1_572_864
 
     page.goto(base + "/download.html")
     page.on("dialog", lambda dialog: dialog.accept())
@@ -150,6 +171,7 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
         page.set_viewport_size({"width": width, "height": 900})
         page.locator('[data-step="encoding"]').click()
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), width
+        assert page.locator("#fullCodes").is_visible()
     for width, height in [(1024, 768), (1180, 820), (1194, 834), (1366, 1024), (1024, 680)]:
         page.set_viewport_size({"width": width, "height": height})
         page.locator("#tab-drawing").click()
@@ -157,6 +179,10 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), (width, height)
         bottom = page.locator(".settings").bounding_box()
         assert bottom["y"] + bottom["height"] <= height, (width, height, bottom)
+        page.locator('[data-step="encoding"]').click()
+        code_box = page.locator("#fullCodes").bounding_box()
+        assert code_box["y"] + code_box["height"] <= height, (width, height, code_box)
+        assert page.locator("#pixelDialog").is_hidden()
         for view in ["resolution", "guide", "drawing"]:
             page.locator("#tab-" + view).click()
             assert page.locator("#" + view + "View").is_visible()
@@ -172,5 +198,5 @@ with sync_playwright() as pw, tempfile.TemporaryDirectory() as temp:
     tablet.touchscreen.tap(rect["x"] + 20, rect["y"] + 20)
     assert tablet.evaluate("source.toDataURL()") != old
     assert not errors, errors
-    print("PASS: sampling, quantization, binary encoding, resolution, drawing/undo, downloads, offline HTML, iPad landscape tabs, responsive layouts and touch")
+    print("PASS: sampling, quantization, binary encoding, resolution, drawing/undo, downloads, offline HTML, whole-image binary digits and clipboard, pixel popups, simple resolution, iPad landscape tabs and touch")
     browser.close()
