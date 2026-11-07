@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>画像のデジタル化君２をダウンロード</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f2f6fa;color:#192b3c;font:16px/1.8 system-ui,sans-serif;padding:24px}main{width:min(100%,580px);padding:36px;background:white;border:1px solid #dce5ec;border-radius:20px}h1{font-size:25px;margin:0 0 16px}p{margin:12px 0}.button{display:block;text-align:center;background:#156d9d;color:white;padding:14px;border-radius:10px;text-decoration:none;font-weight:700;margin:24px 0}small{display:block;color:#526879}a{color:#156d9d}
+</style>
+</head>
+<body>
+<main>
+<h1>画像のデジタル化君２をダウンロード</h1>
+<p id="status" role="status" aria-live="polite">ダウンロードする場合は、下のボタンを押してください。確認画面で「OK」を選ぶと保存を開始します。</p>
+<a id="download" class="button" href="./index.html" download="img_digital_kun2.html">HTMLをダウンロード</a>
+<p>保存した <strong>img_digital_kun2.html</strong> をブラウザで開いてご利用ください。</p>
+<small>保存後はオフラインでも利用できます。描画と変換は端末内で処理し、画像データを外部へ送信しません。</small>
+
+<p><a href="./">ブラウザでそのまま使う</a></p>
+</main>
+<script>
+const link=document.getElementById('download');
+async function prepare(){
+ const response=await fetch('./index.html',{cache:'no-store'});
+ if(!response.ok) throw new Error('download failed');
+ const html=await response.blob();
+ return URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
+}
+async function save(){
+ try{
+  const url=await prepare();
+  const a=document.createElement('a');
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+  a.href=url;a.download='img_digital_kun2.html';
+  document.body.appendChild(a);a.click();a.remove();
+ }catch(error){
+  document.getElementById('status').textContent='ダウンロードできませんでした。通信状態を確認し、下のボタンでもう一度お試しください。';
+ }
+}
+link.addEventListener('click', event => {
+ event.preventDefault();
+ if (!window.confirm('「img_digital_kun2.html」をダウンロードしますか？')) return;
+ save();
+});
+</script>
+</body>
+</html>

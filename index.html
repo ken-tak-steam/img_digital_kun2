@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="描いた絵で標本化・量子化・符号化を体験。画素数と解像度、印刷サイズの関係を学ぶ教材アプリ。">
+<title>画像のデジタル化君２</title>
+<style>
+:root{color-scheme:light;--ink:#153b33;--green:#16715b;--line:#c4d6cc;--soft:#edf3f0;--muted:#4f685e}*{box-sizing:border-box}body{margin:0;background:var(--soft);color:var(--ink);font:15px/1.6 system-ui,-apple-system,"BIZ UDPGothic",sans-serif}main{max-width:1360px;margin:auto;padding:20px 24px}h1{font-size:27px;letter-spacing:.02em;margin:0}h2{font-size:17px;margin:0 0 10px}h3{font-size:15px;margin:0 0 8px}p{margin:6px 0 12px}button,input,select{font:inherit;color:inherit}button,select,input[type=number]{border:1px solid #a8c0b3;border-radius:7px;background:#fff;padding:7px 10px}button,select{cursor:pointer}button:hover{background:#e6f1eb}button:disabled{opacity:.45;cursor:default}button.primary{background:var(--green);color:#fff;border-color:var(--green)}input[type=range]{accent-color:var(--green);width:100%;min-height:26px;margin:0}input[type=color]{width:46px;height:37px;background:#fff;border:1px solid var(--line);padding:2px;border-radius:6px}input[type=checkbox]{accent-color:var(--green)}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,canvas:focus-visible,summary:focus-visible{outline:3px solid #d49427;outline-offset:3px}button,a{touch-action:manipulation}a{color:#126a55;text-underline-offset:3px}header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.intro{color:var(--muted);margin:3px 0 16px}.badge{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--green)}.small-button{font-size:12px;padding:6px 10px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.step{text-align:left;padding:10px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;display:flex;gap:10px;align-items:center}.step[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}.step b{display:block;font-size:16px}.step small{display:block;font-size:12px}.step-number{display:grid;place-items:center;flex:none;width:30px;height:30px;border:1px solid currentColor;border-radius:50%;font-weight:700}.workspace{display:grid;grid-template-columns:210px minmax(0,1fr);gap:14px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}.tools .row{margin-bottom:10px}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.color-code{font:600 14px ui-monospace,monospace}.swatches{display:flex;gap:7px;margin-bottom:12px}.swatch{width:25px;height:25px;padding:0;background:var(--swatch);border:1px solid #78998b;border-radius:50%}.swatch:hover{background:var(--swatch);outline:2px solid var(--green);outline-offset:2px}.field{display:block;margin:10px 0}.field>span,.field>label{display:block;font-size:13px;font-weight:650;margin-bottom:4px}.field select{width:100%}.tools output{font-size:13px}.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.actions button{flex:1;font-size:12px;padding:7px 5px;white-space:nowrap}.tools details{font-size:12px;margin-top:12px}.rgb-row{display:grid;grid-template-columns:16px 1fr;gap:8px;align-items:center;margin-top:6px}.rgb-row input{width:100%;min-height:32px;padding:3px 6px}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px}.canvas-heading{display:flex;justify-content:space-between;gap:6px;align-items:center}.canvas-heading span{font-size:11px;color:var(--muted)}.canvas-wrap{position:relative;width:min(100%,350px);margin:auto;aspect-ratio:1;background:white;border:1px solid #8aa99c;overflow:hidden}.canvas-wrap canvas{display:block;width:100%;height:100%;position:absolute;inset:0}#original{touch-action:none;cursor:crosshair}#result{image-rendering:pixelated;cursor:crosshair}#overlay{pointer-events:none}.caption{font-size:12px;color:var(--muted);margin:8px 0 0;min-height:39px}.stats{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;font-size:12px}.stats strong{display:block;font-size:21px;line-height:1.35}.lesson{margin-top:12px;border-left:4px solid var(--green);background:#eaf3ee;padding:10px 14px;border-radius:0 8px 8px 0}.lesson strong{font-size:15px}.lesson p{font-size:13px;margin:3px 0}.settings{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}.settings .field{margin:0}.value{float:right;font-variant-numeric:tabular-nums;font-weight:700}.hint{font-size:12px;color:var(--muted);margin:6px 0 0}.quantization{display:flex;align-items:center;gap:8px;margin-bottom:8px}.quantization select{max-width:100%;min-width:0;flex:1}.quantization output{white-space:nowrap;font-size:13px}.quantization label{font-size:12px}.range-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}.palette{height:13px;margin-top:8px;border-radius:4px;background:#eee}.inspector{margin-top:12px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}.pixel-chip{width:52px;height:52px;border:1px solid #8aa99c;border-radius:7px}.inspector p{font-size:12px;margin:0 0 6px}.code-table{width:100%;border-collapse:collapse;font-size:12px;text-align:left}.code-table th,.code-table td{padding:5px 8px;border-bottom:1px solid #dbe6e0}.code-table code{font:13px ui-monospace,monospace;letter-spacing:.06em;word-break:break-all}.bit-stream{font:12px/1.8 ui-monospace,monospace;background:#edf3f0;border-radius:6px;padding:8px;overflow-wrap:anywhere;max-height:72px;overflow:auto;margin-top:8px}.resolution{margin-top:14px}.resolution-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 220px;gap:20px;align-items:start}.resolution select{width:100%}.resolution input[type=number]{width:85px}.paper-area{height:144px;display:flex;background:repeating-linear-gradient(0deg,transparent 0 19px,#d7e1db 19px 20px),repeating-linear-gradient(90deg,#f5f8f6 0 19px,#d7e1db 19px 20px);border:1px solid var(--line);border-radius:8px;overflow:auto}.paper{margin:auto;background:white;border:1px solid #628374;box-shadow:2px 3px 6px #153b331c;display:grid;place-items:center;flex:none}.paper canvas{width:100%;height:100%;image-rendering:pixelated}.print-stats{font-size:12px;text-align:center;margin-top:6px}.formula{font-size:13px;background:#f5f8f6;border-radius:7px;padding:9px 12px;margin-top:12px}.bottom{margin-top:14px;font-size:12px}.bottom summary{cursor:pointer;font-weight:650}.bottom p{margin:8px 0}.downloads{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.downloads button{font-size:12px}.privacy{font-size:11px;color:var(--muted);margin:12px 0 6px}footer{display:flex;flex-wrap:wrap;gap:14px;font-size:12px}dialog{width:min(90%,680px);max-height:85vh;overflow:auto;border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:24px}dialog::backdrop{background:#153b3377}dialog pre{white-space:pre-wrap;font:13px/1.8 system-ui,sans-serif}.status{font-size:12px;min-height:20px;color:var(--green)}[hidden]{display:none!important}@media(max-width:900px){main{padding:16px}.workspace{grid-template-columns:175px minmax(0,1fr)}.panel{padding:11px}.resolution-grid{grid-template-columns:1fr 1fr}.paper-preview{grid-column:1/-1;display:grid;grid-template-columns:160px 1fr;align-items:center;gap:14px}.paper-area{height:130px}.step{padding:8px}.step small{font-size:11px}.stats{gap:12px}.stats strong{font-size:18px}}@media(max-width:640px){h1{font-size:23px}main{padding:12px}.workspace{grid-template-columns:1fr;gap:10px}.tools{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.tools h2{grid-column:1/-1}.tools .drawing-tools{grid-row:2/5;grid-column:1}.tools>.field,.tools>.actions,.tools>details{grid-column:2}.tools>.field{margin-top:0}.steps{gap:5px}.step{display:block;padding:7px;text-align:center}.step-number{display:none}.step b{font-size:14px}.step small{font-size:10px}.comparison{gap:8px}.canvas-heading{display:block}.canvas-heading h2{font-size:14px;margin-bottom:4px}.canvas-heading span{display:none}.caption{font-size:11px;min-height:54px}.stats{gap:8px}.stats strong{font-size:16px}.settings{grid-template-columns:1fr;gap:12px}.resolution-grid{grid-template-columns:1fr;gap:12px}.paper-preview{grid-column:auto;grid-template-columns:130px 1fr}.inspector{gap:8px}.pixel-chip{width:35px;height:35px}.code-table th,.code-table td{padding:4px}.quantization{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<main>
+<header><div><div class="badge">描いて、変えて、しくみが見える。</div><h1>画像のデジタル化君２</h1></div><button id="licenseButton" class="small-button" aria-haspopup="dialog" aria-controls="licenseDialog">ライセンス・免責事項</button></header>
+<p class="intro">ひとつの絵が、画素になり、数値になり、０と１になる。その変化を比べよう。</p>
+<nav class="steps" aria-label="学習する段階">
+<button class="step" data-step="sampling" aria-pressed="true"><span class="step-number">1</span><span><b>標本化</b><small>どれだけ細かく区切る？</small></span></button>
+<button class="step" data-step="quantization" aria-pressed="false"><span class="step-number">2</span><span><b>量子化</b><small>色を何段階で表す？</small></span></button>
+<button class="step" data-step="encoding" aria-pressed="false"><span class="step-number">3</span><span><b>符号化</b><small>数値を０と１で表そう</small></span></button>
+</nav>
+<div class="workspace">
+<aside class="panel tools" aria-label="描画の設定">
+<h2>ペンの設定</h2>
+<div class="drawing-tools"><div class="row"><input id="color" type="color" value="#153b33" aria-label="ペンの色"><output id="hex" class="color-code">#153B33</output></div>
+<div class="swatches" aria-label="よく使う色"><button class="swatch" style="--swatch:#153b33" data-color="#153b33" aria-label="濃い緑"></button><button class="swatch" style="--swatch:#e45858" data-color="#e45858" aria-label="赤"></button><button class="swatch" style="--swatch:#3b82c4" data-color="#3b82c4" aria-label="青"></button><button class="swatch" style="--swatch:#edb743" data-color="#edb743" aria-label="黄"></button><button class="swatch" style="--swatch:#ffffff" data-color="#ffffff" aria-label="白"></button></div>
+<label class="field"><span>ペンの太さ <output id="penValue" class="value">10 px</output></span><input id="penWidth" type="range" min="2" max="40" value="10"></label>
+<details><summary>RGBで色を指定</summary><label class="rgb-row">R<input id="red" type="number" min="0" max="255" value="21"></label><label class="rgb-row">G<input id="green" type="number" min="0" max="255" value="59"></label><label class="rgb-row">B<input id="blue" type="number" min="0" max="255" value="51"></label></details></div>
+<label class="field"><span>サンプル画像</span><select id="sample"><option value="landscape">山と太陽</option><option value="gradient">グラデーション</option><option value="letters">文字と細い線</option><option value="blank">白紙</option></select></label>
+<div class="actions"><button id="loadSample">サンプルを表示</button></div><div class="actions"><button id="undo" disabled>元に戻す</button><button id="clear">全消去</button></div>
+<p class="hint">左の画像に、そのまま描けます。<br>指・タッチペンにも対応。</p>
+</aside>
+<div>
+<section class="comparison" aria-label="元の画像と加工後の比較">
+<article class="panel"><div class="canvas-heading"><h2>元の画像・描画</h2><span>ここに描こう</span></div><div class="canvas-wrap"><canvas id="original" width="512" height="512" aria-label="自由に絵を描くキャンバス"></canvas></div><p class="caption">512 × 512 px ／ RGB各256段階<br>元の画像も、すでにデジタル画像です。</p><div class="stats"><div><strong>262,144</strong>画素</div><div><strong>24 bit</strong>１画素あたり</div></div></article>
+<article class="panel"><div class="canvas-heading"><h2 id="resultTitle">標本化した画像</h2><span id="resultTag">画素の区切りを見る</span></div><div class="canvas-wrap"><canvas id="result" width="32" height="32" tabindex="0" role="img" aria-label="加工後の画像。クリックで画素を選択。矢印キーで移動できます。"></canvas><canvas id="overlay" width="512" height="512" aria-hidden="true"></canvas></div><p id="resultCaption" class="caption"></p><div class="stats"><div><strong id="pixelCount"></strong>画素</div><div><strong id="bitCount"></strong>１画素あたり</div><div><strong id="dataSize"></strong>画素データ量</div></div></article>
+</section>
+<div class="lesson" aria-live="polite"><strong id="lessonTitle"></strong><p id="lessonText"></p></div>
+<section class="panel settings" aria-label="標本化と量子化の設定">
+<div class="field"><label for="pixels">標本化：縦・横の画素数 <output id="dimensions" class="value"></output></label><input id="pixels" type="range" min="2" max="8" step="1" value="5"><div class="range-labels"><span>粗い（4 × 4）</span><span>細かい（256 × 256）</span></div><div class="row"><label class="hint"><input id="grid" type="checkbox" checked> 画素の区切りを表示</label></div><p id="samplingHint" class="hint">各マスの中心の色を１つ取り出しています。</p></div>
+<div class="field"><label for="bits">量子化：色・明るさの段階数</label><div class="quantization"><select id="mode" aria-label="色の表し方"><option value="rgb">カラー（RGB）</option><option value="gray">グレースケール</option></select><output id="levels"></output></div><input id="bits" type="range" min="1" max="8" step="1" value="2"><div class="range-labels"><span>少ない（1 bit）</span><span>多い（8 bit）</span></div><div id="palette" class="palette" aria-hidden="true"></div><p id="quantizationHint" class="hint"></p></div>
+</section>
+<section id="inspector" class="panel inspector" aria-label="選んだ画素の符号化" hidden><div id="chip" class="pixel-chip"></div><div><h3 id="selectedPosition"></h3><p>右の画像をクリック／タップして選択。フォーカス後は矢印キーでも移動できます。</p><table class="code-table"><thead><tr><th>成分</th><th>標本値（0〜255）</th><th>量子化した整数</th><th>２進数</th></tr></thead><tbody id="codeRows"></tbody></table><p id="codeExplanation" class="hint"></p><div id="stream" class="bit-stream" aria-label="選択画素から続く最大8画素のビット列"></div></div></section>
+</div>
+</div>
+<section class="panel resolution" aria-labelledby="resolutionTitle"><h2 id="resolutionTitle">画素数と解像度・印刷サイズを比べよう</h2><div class="resolution-grid">
+<div><label class="field"><span>何を同じにして比べる？</span><select id="resolutionBasis"><option value="pixels">画素数を同じにする</option><option value="print">印刷サイズを同じにする</option></select></label><p id="resolutionLesson" class="hint"></p><label id="printSizeField" class="field" hidden><span>印刷する１辺の長さ</span><input id="printSize" type="number" min="0.5" max="5" step="0.01" value="2.54"> cm</label></div>
+<div><label class="field"><span>画像の解像度 <output id="ppiValue" class="value">32 ppi</output></span><input id="ppi" type="range" min="8" max="256" step="1" value="32"></label><div class="range-labels"><span>8 ppi</span><span>256 ppi</span></div><p class="hint">1インチ（2.54 cm）あたりに並ぶ画素の数。<br>画像は ppi、プリンターの点の密度は dpi と呼びます。</p><p id="resolutionNumbers" class="formula"></p></div>
+<div class="paper-preview"><div class="paper-area"><div id="paper" class="paper"><canvas id="printPreview" width="32" height="32" aria-label="印刷サイズの相対的な比較"></canvas></div></div><p id="printStats" class="print-stats"></p></div>
+</div><p class="hint">印刷イメージは大きさの変化を比べるための縮尺表示です。画面上の実寸ではありません。ppiを変えても、画素数が同じなら画像の情報量は変わりません。</p></section>
+<details class="panel bottom"><summary>授業で使う前に：このアプリのモデル・データ量・dpiについて</summary><p>左のキャンバスも512 × 512画素のデジタル画像です。連続的な実物の画像を直接デジタル化するのではなく、すでにある画像を使って標本化・量子化・符号化のしくみを体験します。</p><p>標本化では、等間隔に区切った各マスの中心に最も近い元画像の画素を採用します。量子化では、RGBの各成分または明るさを指定の段階数に丸めます。符号化では量子化後の整数を固定長の２進数で表します。符号化だけでは画像の見た目は変わりません。</p><p>圧縮前の画素データ量 ＝ 横の画素数 × 縦の画素数 × １画素あたりのビット数 ÷ 8。表示するBは理論値で、小数になる場合があります。実際の格納には端数を切り上げたバイト数が必要です。ファイルのヘッダー・圧縮・透過情報やCanvas内部のメモリ量は含みません。</p><p>グレースケールの明るさは0.299R + 0.587G + 0.114Bを四捨五入して求めます。カラーはRGB各成分の段階数の３乗が表現可能な色数です。１成分2 bitなら4段階、1画素6 bitで64色です。</p><p>画像の画素密度の単位はppi、プリンターのドット密度の単位はdpiです。授業や印刷設定では画像の解像度も「dpi」と表記されることがありますが、このアプリでは区別して表示します。印刷サイズ固定では必要画素数を四捨五入するため、指定解像度との間に丸め誤差が生じます。保存するPNGには、ここでの印刷解像度を設定しません。</p><p>元画像より多くの細部を復元する機能ではありません。右のPNGとビット列は、量子化後のデータを書き出します。ビット列テキストは学習用の文字表現で、表示する理論データ量とファイルサイズは異なります。</p></details>
+<div class="downloads"><button id="savePng">量子化後の画像をPNG保存</button><button id="saveCodes">量子化後のビット列を保存</button><button id="downloadApp">アプリをHTMLで保存</button></div><div id="status" class="status" role="status"></div>
+<p class="privacy">画像の外部送信なし・アクセス解析なし。保存したHTMLはオフラインでも使えます。</p>
+<footer><span>© 2026 Takakura Kentaro</span><a href="https://ken-tak-steam.github.io/img_digital_kun/" target="_blank" rel="noopener noreferrer">画像のデジタル化君（前作）↗</a><a href="https://github.com/ken-tak-steam/img_digital_kun2" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="download.html">ダウンロードページ</a></footer>
+<dialog id="licenseDialog" aria-labelledby="licenseTitle"><button id="closeLicense" style="float:right">閉じる</button><h2 id="licenseTitle">ライセンス・免責事項</h2><pre id="licenseText">Copyright (c) 2026 Takakura Kentaro
+All rights reserved except as expressly permitted below.
+
+本ソフトウェアの著作権は、著作者に帰属します。
+以下の条件を満たす場合、本ソフトウェアの使用、複製、改変および再配布を無償で許可します。
+
+1. 著作者表示
+再配布・改変版の公開時には、原著作者名、出典URLおよび本ライセンスを明示してください。
+
+2. 非商用利用
+本ソフトウェア自体の販売、商用製品への組み込み、その他の営利目的での利用は禁止します。
+ただし、学校教育、有料・無料の講習会、研修会で教材として利用することは認めます。
+
+3. 改変・再配布
+改変および再配布を認めます。改変した場合は、その旨を明示してください。
+
+4. 免責事項
+本ソフトウェアは現状有姿で提供されます。著作者は、使用によって生じた損害について、法令で認められる範囲で責任を負いません。
+
+出典URL: https://github.com/ken-tak-steam/img_digital_kun2
+画像のデジタル化君２
+
+前作「画像のデジタル化君」のUI・描画操作を引き継ぎ、標本化・量子化・符号化の学習機能を追加したものです。
+前作: https://github.com/ken-tak-steam/img_digital_kun</pre></dialog>
+</main>
+<script>
+'use strict';
+const APP_HTML='<!doctype html>\n'+document.documentElement.outerHTML;
+const $=id=>document.getElementById(id);
+const source=$('original'),ctx=source.getContext('2d',{willReadFrequently:true});
+const result=$('result'),out=result.getContext('2d');
+const overlay=$('overlay'),gridCtx=overlay.getContext('2d');
+const quantized=document.createElement('canvas'),quantCtx=quantized.getContext('2d');
+const printCanvas=$('printPreview'),printCtx=printCanvas.getContext('2d');
+const historyStack=[];
+let step='sampling',activePointer=null,lastPoint=null,selected={x:0,y:0},frame=null,pending=false;
+const number=(n,d=2)=>n.toLocaleString('ja-JP',{maximumFractionDigits:d});
+const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
+const lessons={sampling:['① 標本化：位置を決めて、色を取り出す','画素数を減らすと、細い線や小さな形はどうなる？ まずは「文字と細い線」のサンプルでも比べてみよう。'],quantization:['② 量子化：色や明るさを、決まった段階に丸める','画素数をそのままに、色の段階数を減らしてみよう。グラデーションの変化と１画素あたりのビット数に注目。'],encoding:['③ 符号化：量子化した整数を、０と１で表す','右の画像の画素を選ぼう。色を表す整数が、何桁の２進数になるかな？ 符号化しても、画像の見た目は変わりません。']};
+function parameters(){
+ const ppi=Number($('ppi').value),physical=$('resolutionBasis').value==='print';
+ const cm=clamp(Number($('printSize').value)||2.54,.5,5);
+ const n=physical?Math.max(1,Math.round(cm/2.54*ppi)):2**Number($('pixels').value);
+ const bits=Number($('bits').value),gray=$('mode').value==='gray';
+ return {n,bits,gray,levels:2**bits,bpp:gray?bits:3*bits,ppi,cm,physical};
+}
+function quantize(v,levels){return Math.round(v*(levels-1)/255)}
+function binary(v,bits){return v.toString(2).padStart(bits,'0')}
+function sampleAndQuantize(p){
+ const original=ctx.getImageData(0,0,512,512).data;
+ const sampled=new ImageData(p.n,p.n),processed=new ImageData(p.n,p.n);
+ const channels=p.gray?1:3,codes=new Uint8Array(p.n*p.n*channels);
+ for(let y=0;y<p.n;y++)for(let x=0;x<p.n;x++){
+  const sx=Math.min(511,Math.floor((x+.5)*512/p.n)),sy=Math.min(511,Math.floor((y+.5)*512/p.n));
+  const sourceIndex=(sy*512+sx)*4,i=(y*p.n+x)*4;
+  const rgb=[original[sourceIndex],original[sourceIndex+1],original[sourceIndex+2]];
+  sampled.data.set([...rgb,255],i);
+  const values=p.gray?[Math.round(.299*rgb[0]+.587*rgb[1]+.114*rgb[2])]:rgb;
+  const q=values.map(v=>quantize(v,p.levels));
+  codes.set(q,(y*p.n+x)*channels);
+  const display=q.map(v=>Math.round(v*255/(p.levels-1)));
+  processed.data.set(p.gray?[display[0],display[0],display[0],255]:[...display,255],i);
+ }
+ return {sampled,processed,codes,...p};
+}
+function render(){
+ pending=false;const p=parameters();frame=sampleAndQuantize(p);
+ result.width=result.height=p.n;out.putImageData(step==='sampling'?frame.sampled:frame.processed,0,0);
+ quantized.width=quantized.height=p.n;quantCtx.putImageData(frame.processed,0,0);
+ selected.x=Math.min(selected.x,p.n-1);selected.y=Math.min(selected.y,p.n-1);
+ const bpp=step==='sampling'?24:p.bpp,bytes=p.n*p.n*bpp/8;
+ $('resultTitle').textContent=step==='sampling'?'標本化した画像':step==='quantization'?'量子化した画像':'符号化する画像';
+ $('resultTag').textContent=step==='sampling'?'画素の区切りを見る':step==='quantization'?'色の段階を比べる':'画素を選んでみよう';
+ $('resultCaption').textContent=`${p.n} × ${p.n} px ／ ${step==='sampling'?'標本化のみ・RGB各256段階':p.gray?p.levels+'階調のグレースケール':'RGB各'+p.levels+'段階・'+number(p.levels**3)+'色'}`;
+ $('pixelCount').textContent=number(p.n*p.n);$('bitCount').textContent=bpp+' bit';$('dataSize').textContent=number(bytes,3)+' B';
+ $('dataSize').title='バイト単位で格納する場合：'+number(Math.ceil(bytes))+' B以上';
+ $('dimensions').textContent=`${p.n} × ${p.n} px`;
+ $('levels').textContent=p.levels+'段階'+(p.gray?'':'／成分');
+ $('quantizationHint').textContent=`${p.bits} bit${p.gray?'／画素':'／成分 → '+p.bpp+' bit／画素'}。${step==='sampling'?'「量子化」を選ぶと反映されます。':'色の段階を減らすと、データ量も小さくなります。'}`;
+ const colors=Array.from({length:Math.min(p.levels,256)},(_,i)=>{const v=Math.round(i*255/(Math.min(p.levels,256)-1));return `rgb(${v},${v},${v}) ${i*100/Math.min(p.levels,256)}% ${(i+1)*100/Math.min(p.levels,256)}%`});
+ $('palette').style.background='linear-gradient(to right,'+colors.join(',')+')';
+ $('lessonTitle').textContent=lessons[step][0];$('lessonText').textContent=lessons[step][1];
+ $('inspector').hidden=step!=='encoding';
+ $('pixels').disabled=p.physical;$('printSizeField').hidden=!p.physical;
+ $('samplingHint').textContent=p.physical?'印刷サイズ固定のため、画素数は下の解像度から計算します。':'各マスの中心の色を１つ取り出しています。';
+ $('resolutionLesson').textContent=p.physical?'同じ大きさに印刷するなら、解像度を上げるほど多くの画素が必要です。':'同じ画素数なら、解像度を上げるほど印刷サイズが小さくなります。';
+ const printCm=p.physical?p.cm:p.n/p.ppi*2.54;
+ $('ppiValue').textContent=p.ppi+' ppi';
+ $('resolutionNumbers').textContent=p.physical?`${number(p.cm)} cm ÷ 2.54 × ${p.ppi} ppi ≒ ${p.n} px`:`${p.n} px ÷ ${p.ppi} ppi × 2.54 ＝ ${number(printCm)} cm`;
+ $('printStats').textContent=`${number(printCm)} × ${number(printCm)} cm ／ ${p.n} × ${p.n} px（共通の縮尺・1 cmを6画面pxで表示。大きいときは枠内をスクロール）`;
+ const side=Math.max(1,printCm*6);$('paper').style.width=side+'px';$('paper').style.height=side+'px';
+ printCanvas.width=printCanvas.height=p.n;printCtx.putImageData(step==='sampling'?frame.sampled:frame.processed,0,0);
+ drawOverlay();updateInspector();
+}
+function requestRender(){if(!pending){pending=true;requestAnimationFrame(render)}}
+function drawOverlay(){
+ gridCtx.clearRect(0,0,512,512);if(!frame)return;
+ const cell=512/frame.n;
+ if($('grid').checked&&frame.n<=64){gridCtx.lineWidth=1;gridCtx.strokeStyle='rgba(21,59,51,.26)';gridCtx.beginPath();for(let i=1;i<frame.n;i++){const pos=i*cell;gridCtx.moveTo(pos,0);gridCtx.lineTo(pos,512);gridCtx.moveTo(0,pos);gridCtx.lineTo(512,pos)}gridCtx.stroke()}
+ if(step==='encoding'){const x=selected.x*cell,y=selected.y*cell;gridCtx.strokeStyle='white';gridCtx.lineWidth=5;gridCtx.strokeRect(x,y,cell,cell);gridCtx.strokeStyle='#c63b31';gridCtx.lineWidth=2;gridCtx.strokeRect(x,y,cell,cell)}
+}
+function updateInspector(){
+ if(!frame)return;const {n,bits,gray,levels}=frame,idx=selected.y*n+selected.x,i=idx*4,channels=gray?1:3;
+ const raw=Array.from(frame.sampled.data.slice(i,i+3)),display=Array.from(frame.processed.data.slice(i,i+3));
+ const values=gray?[Math.round(.299*raw[0]+.587*raw[1]+.114*raw[2])]:raw;
+ $('chip').style.background=`rgb(${display.join(',')})`;
+ $('selectedPosition').textContent=`選択した画素：左から${selected.x+1}、上から${selected.y+1}`;
+ $('codeRows').replaceChildren(...values.map((v,c)=>{const row=document.createElement('tr');const q=frame.codes[idx*channels+c];for(const val of [gray?'明るさ':['R（赤）','G（緑）','B（青）'][c],v,q,binary(q,bits)]){const td=document.createElement('td');if(row.children.length===3){const code=document.createElement('code');code.textContent=val;td.append(code)}else td.textContent=val;row.append(td)}return row}));
+ $('codeExplanation').textContent=`0〜${levels-1}の整数を${bits}桁の２進数で表します。１画素は${frame.bpp} bit。左上から右へ、行ごとに並べます。`;
+ const slice=frame.codes.slice(idx*channels,Math.min(frame.codes.length,(idx+8)*channels));
+ $('stream').textContent=Array.from({length:slice.length/channels},(_,j)=>Array.from(slice.slice(j*channels,(j+1)*channels),v=>binary(v,bits)).join(' ')).join(' | ');
+}
+function chooseStep(next){step=next;document.querySelectorAll('[data-step]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.step===next)));render()}
+function saveHistory(){if(historyStack.length>=20)historyStack.shift();historyStack.push(ctx.getImageData(0,0,512,512));$('undo').disabled=false}
+function white(){ctx.fillStyle='white';ctx.fillRect(0,0,512,512)}
+function showSample(kind){
+ white();ctx.save();
+ if(kind==='landscape'){
+  const sky=ctx.createLinearGradient(0,0,0,512);sky.addColorStop(0,'#c3e0ea');sky.addColorStop(1,'#f8efcb');ctx.fillStyle=sky;ctx.fillRect(0,0,512,512);
+  ctx.fillStyle='#edb743';ctx.beginPath();ctx.arc(380,120,55,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#8eb6a6';ctx.beginPath();ctx.moveTo(0,380);ctx.lineTo(185,115);ctx.lineTo(380,400);ctx.lineTo(512,240);ctx.lineTo(512,512);ctx.lineTo(0,512);ctx.fill();
+  ctx.fillStyle='#25795f';ctx.beginPath();ctx.moveTo(0,450);ctx.quadraticCurveTo(180,240,512,410);ctx.lineTo(512,512);ctx.lineTo(0,512);ctx.fill();
+  ctx.strokeStyle='#fff7dc';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(230,512);ctx.quadraticCurveTo(420,400,280,360);ctx.stroke();
+ }else if(kind==='gradient'){
+  const gradient=ctx.createLinearGradient(0,0,512,0);gradient.addColorStop(0,'#000');gradient.addColorStop(1,'#fff');ctx.fillStyle=gradient;ctx.fillRect(0,0,512,256);
+  const color=ctx.createLinearGradient(0,0,512,0);color.addColorStop(0,'#e45858');color.addColorStop(.5,'#edb743');color.addColorStop(1,'#3b82c4');ctx.fillStyle=color;ctx.fillRect(0,256,512,256);
+ }else if(kind==='letters'){
+  ctx.fillStyle='#153b33';ctx.font='bold 145px system-ui,sans-serif';ctx.textAlign='center';ctx.fillText('画像',256,205);ctx.font='bold 85px system-ui,sans-serif';ctx.fillText('ABC 123',256,330);
+  ctx.strokeStyle='#153b33';for(let i=0;i<8;i++){ctx.lineWidth=i+1;ctx.beginPath();ctx.moveTo(40,370+i*15);ctx.lineTo(472,370+i*15);ctx.stroke()}
+ }
+ ctx.restore();render();
+}
+function showColor(){const hex=$('color').value;$('hex').textContent=hex.toUpperCase();['red','green','blue'].forEach((id,i)=>$(id).value=parseInt(hex.slice(1+i*2,3+i*2),16))}
+function point(e){const box=source.getBoundingClientRect();return [(e.clientX-box.left)*512/box.width,(e.clientY-box.top)*512/box.height]}
+source.addEventListener('pointerdown',e=>{if(activePointer!==null||e.button!==0)return;saveHistory();activePointer=e.pointerId;source.setPointerCapture(e.pointerId);lastPoint=point(e);ctx.fillStyle=ctx.strokeStyle=$('color').value;ctx.lineWidth=Number($('penWidth').value);ctx.lineCap='round';ctx.beginPath();ctx.arc(...lastPoint,ctx.lineWidth/2,0,Math.PI*2);ctx.fill();requestRender()});
+source.addEventListener('pointermove',e=>{if(e.pointerId!==activePointer)return;const next=point(e);ctx.beginPath();ctx.moveTo(...lastPoint);ctx.lineTo(...next);ctx.stroke();lastPoint=next;requestRender()});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])source.addEventListener(event,()=>{activePointer=null});
+result.addEventListener('click',e=>{const box=result.getBoundingClientRect();selected={x:clamp(Math.floor((e.clientX-box.left)*frame.n/box.width),0,frame.n-1),y:clamp(Math.floor((e.clientY-box.top)*frame.n/box.height),0,frame.n-1)};chooseStep('encoding');result.focus()});
+result.addEventListener('keydown',e=>{const moves={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(!moves[e.key])return;e.preventDefault();selected.x=clamp(selected.x+moves[e.key][0],0,frame.n-1);selected.y=clamp(selected.y+moves[e.key][1],0,frame.n-1);chooseStep('encoding')});
+document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>chooseStep(b.dataset.step));
+document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{$('color').value=b.dataset.color;showColor()});
+$('color').oninput=showColor;
+['red','green','blue'].forEach(id=>{$(id).oninput=()=>{if($(id).value==='')return;$(id).value=clamp(Math.round(Number($(id).value)),0,255);$('color').value='#'+['red','green','blue'].map(c=>Number($(c).value).toString(16).padStart(2,'0')).join('');$('hex').textContent=$('color').value.toUpperCase()};$(id).onchange=showColor});
+$('penWidth').oninput=()=>$('penValue').textContent=$('penWidth').value+' px';
+$('undo').onclick=()=>{if(historyStack.length)ctx.putImageData(historyStack.pop(),0,0);$('undo').disabled=!historyStack.length;render()};
+$('clear').onclick=()=>{saveHistory();white();render()};$('loadSample').onclick=()=>{saveHistory();showSample($('sample').value)};
+for(const id of ['pixels','bits','ppi'])$(id).oninput=requestRender;
+for(const id of ['mode','resolutionBasis'])$(id).onchange=render;
+$('printSize').oninput=()=>{if($('printSize').validity.valid&&$('printSize').value!=='')requestRender()};
+$('printSize').onchange=()=>{$('printSize').value=clamp(Number($('printSize').value)||2.54,.5,5);render()};
+$('grid').onchange=drawOverlay;
+function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);$('status').textContent=name+' の保存を開始しました。'}
+$('savePng').onclick=()=>{render();quantized.toBlob(blob=>{if(blob)download(blob,'img_digital_kun2.png')},'image/png')};
+$('saveCodes').onclick=()=>{render();const {n,bits,gray,bpp,codes}=frame,channels=gray?1:3;const header=`画像のデジタル化君２\n幅=${n} 高さ=${n} 成分=${gray?'明るさ':'RGB'} 成分あたり=${bits}bit 画素あたり=${bpp}bit\n左上から右へ、上の行から下の行へ。空白は成分の区切り、| は画素の区切り。\nこのテキストは学習用の文字表現です。\n\n`;
+ const rows=[];for(let y=0;y<n;y++){const pixels=[];for(let x=0;x<n;x++){const start=(y*n+x)*channels;pixels.push(Array.from(codes.slice(start,start+channels),v=>binary(v,bits)).join(' '))}rows.push(pixels.join(' | '))}download(new Blob([header+rows.join('\n')],{type:'text/plain;charset=utf-8'}),'img_digital_kun2_bits.txt')};
+$('downloadApp').onclick=()=>download(new Blob([APP_HTML],{type:'text/html;charset=utf-8'}),'img_digital_kun2.html');
+$('licenseButton').onclick=()=>$('licenseDialog').showModal();$('closeLicense').onclick=()=>$('licenseDialog').close();
+showColor();showSample('landscape');
+</script>
+</body>
+</html>
